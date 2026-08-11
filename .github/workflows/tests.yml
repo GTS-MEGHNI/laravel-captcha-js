@@ -1,0 +1,55 @@
+name: tests
+
+on:
+    push:
+        branches:
+            - main
+            - '*.x'
+    pull_request:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    tests:
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            fail-fast: true
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+                node: [20, 22, 24]
+
+        name: N${{ matrix.node }} - ${{ matrix.os }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+            - name: Setup Node
+              uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+              with:
+                  node-version: ${{ matrix.node }}
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Types
+              run: npm run typecheck
+
+            - name: Linter
+              run: npm run lint
+
+            - name: Formatting
+              run: npm run format:check
+
+            - name: Test Suite
+              run: npm run test
+
+            - name: Build
+              run: npm run build
