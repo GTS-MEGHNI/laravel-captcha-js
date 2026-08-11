@@ -1,0 +1,75 @@
+{
+    "name": "@gts-meghni/laravel-captcha",
+    "version": "1.0.0",
+    "description": "Classic image-based CAPTCHA display and invisible proof-of-work solving for JavaScript, React, and Next.js applications.",
+    "keywords": [
+        "captcha",
+        "proof-of-work",
+        "laravel",
+        "nextjs",
+        "react"
+    ],
+    "license": "MIT",
+    "author": "GTS-MEGHNI",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GTS-MEGHNI/laravel-captcha-js.git"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "files": [
+        "dist",
+        "LICENSE.md"
+    ],
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./react": {
+            "types": "./dist/react.d.ts",
+            "import": "./dist/react.js",
+            "require": "./dist/react.cjs"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "check": "npm run typecheck && npm run lint && npm run format:check && npm run test",
+        "prepublishOnly": "npm run check && npm run build"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.18.0",
+        "@types/node": "^22.10.5",
+        "@types/react": "^19.0.7",
+        "eslint": "^9.18.0",
+        "eslint-plugin-react-hooks": "^5.1.0",
+        "prettier": "^3.4.2",
+        "react": "^19.0.0",
+        "tsup": "^8.3.5",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.20.0",
+        "vitest": "^3.0.2"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
